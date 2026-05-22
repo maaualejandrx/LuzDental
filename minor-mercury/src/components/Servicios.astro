@@ -1,0 +1,182 @@
+---
+import { Image } from 'astro:assets';
+import limpiezaBg from '../images/limpieza.webp';
+
+// Listado de tus 8 servicios (los 6 iniciales de Figma + 2 extras para el flujo del carrusel)
+const servicios = [
+  { id: 1, title: 'Limpiezas dentales', desc: 'Cuidado preventivo y chequeo de rutina.', icon: '🦷', bgImage: limpiezaBg},
+  { id: 2, title: 'Resinas', desc: 'Restauraciones estéticas y duraderas.', icon: '🦷' },
+  { id: 3, title: 'Coronas dentales', desc: 'Prótesis fijas para restaurar la anatomía dental.', icon: '👑' },
+  { id: 4, title: 'Endodoncias', desc: 'Tratamientos de conducto avanzados sin dolor.', icon: '🔬' },
+  { id: 5, title: 'Prótesis dentales', desc: 'Restauración completa de la función y tu sonrisa.', icon: '👄' },
+  { id: 6, title: 'Odontopediatría', desc: 'Gentil y amigable cuidado para los niños de la casa.', icon: '👶' },
+  { id: 7, title: 'Ortodoncia', desc: 'Alineación perfecta y functional para tus dientes.', icon: '😬' },
+  { id: 8, title: 'Blanqueamiento', desc: 'Estética dental premium para iluminar tu rostro.', icon: '✨' },
+];
+---
+
+<section id="services-section" class="w-full bg-[#FAFAFA] py-24 overflow-hidden relative">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-8 space-y-12">
+    
+    <!-- ENCABEZADO DE LA SECCIÓN -->
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+      <div class="space-y-3">
+        <h2 class="text-4xl sm:text-5xl xl:text-6xl font-black text-[#0c1230] tracking-tighter leading-none">
+          Una <span class="text-[#0076c8]">solución</span> para cada ocasión
+        </h2>
+        <p class="text-lg text-slate-500 font-medium">
+          No importa servicio, te aseguramos tu protección
+        </p>
+      </div>
+      
+      <!-- INDICADOR VISUAL DE DESLIZAMIENTO -->
+      <div class="flex items-center gap-2 text-[#0076c8] font-bold text-sm bg-blue-50/60 px-4 py-2 rounded-full self-start md:self-auto animate-pulse">
+        <span>←</span>
+        <span>¡Desliza para ver todos los servicios!</span>
+        <span>→</span>
+      </div>
+    </div>
+
+    <!-- CONTENEDOR CON MÁSCARA INTELIGENTE -->
+    <div id="mask-container" class="relative w-full transition-[mask-image] duration-300 ease-out" style="mask-image: linear-gradient(to right, white 90%, transparent 100%); -webkit-mask-image: linear-gradient(to right, white 90%, transparent 100%);">
+      
+      <!-- CUADRÍCULA DE SERVICIOS -->
+      <div id="services-container" class="flex lg:grid lg:grid-rows-2 lg:grid-flow-col lg:auto-cols-[calc(33.333%-16px)] gap-6 overflow-x-auto pb-6 scrollbar-hide snap-x lg:snap-none snap-mandatory w-full">
+        
+        {servicios.map((servicio) => (
+  <div class="group relative min-w-[290px] sm:min-w-[350px] lg:min-w-0 h-[280px] rounded-[24px] bg-[#d2e5f5] overflow-hidden p-8 flex flex-col justify-between items-start transition-all duration-500 shadow-sm hover:shadow-xl snap-center shrink-0">
+    
+    <!-- NUEVO: Imagen de fondo optimizada por Astro -->
+    <!-- Inicia con 'opacity-0' y cambia a 'opacity-100' solo cuando pasas el mouse -->
+    {servicio.bgImage && (
+      <Image 
+        src={servicio.bgImage} 
+        alt={`Servicio de ${servicio.title}`}
+        class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0 pointer-events-none"
+        loading="lazy"
+      />
+    )}
+
+    <!-- CAPAS OSCURAS EN HOVER (Para que las letras blancas se sigan leyendo bien sobre la foto) -->
+    <div class="absolute inset-0 bg-slate-900/10 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-15"></div>
+    
+    <!-- NOTA: Subimos el nivel de 'z-20' a las letras e iconos para que floten por encima de la foto -->
+    <div class="z-25 w-12 h-12 rounded-full bg-white flex items-center justify-center text-xl shadow-sm transition-transform duration-500 group-hover:scale-110">
+      {servicio.icon}
+    </div>
+
+    <div class="z-25 space-y-2 w-full">
+      <h3 class="text-xl font-black tracking-tight text-[#0c1230] transition-colors duration-300 group-hover:text-white">
+        {servicio.title}
+      </h3>
+      <p class="text-sm font-medium text-slate-600 transition-colors duration-300 group-hover:text-slate-200 leading-relaxed max-w-xs">
+        {servicio.desc}
+      </p>
+    </div>
+    
+  </div>
+))}
+
+
+      </div>
+
+      <!-- SENSORES DE MOVIMIENTO: Corregidos para actuar estrictamente DENTRO de la cuadrícula -->
+      <div id="zone-left" class="hidden lg:block absolute left-0 top-0 h-[calc(100%-24px)] w-20 z-50 cursor-w-resize bg-transparent"></div>
+      <div id="zone-right" class="hidden lg:block absolute right-0 top-0 h-[calc(100%-24px)] w-20 z-50 cursor-e-resize bg-transparent"></div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SCRIPT DE INTERACCIÓN INTELIGENTE POR POSICIÓN -->
+<script>
+  const container = document.getElementById('services-container') as HTMLDivElement;
+  const maskContainer = document.getElementById('mask-container') as HTMLDivElement;
+  const zoneLeft = document.getElementById('zone-left');
+  const zoneRight = document.getElementById('zone-right');
+
+  if (container && maskContainer && zoneLeft && zoneRight) {
+    let scrollSpeed = 0;
+    let animationFrameId: number | null = null;
+
+    // Tres tipos de máscaras según el píxel donde esté el scroll
+    const maskOnlyRight = 'linear-gradient(to right, white 90%, transparent 100%)';
+    const maskBothSides = 'linear-gradient(to right, transparent 0%, white 10%, white 90%, transparent 100%)';
+    const maskOnlyLeft  = 'linear-gradient(to right, transparent 0%, white 10%, white 100%)';
+
+    // Cambia la máscara de opacidad en tiempo real según el avance
+    const updateMaskState = () => {
+      const scrollLeft = container.scrollLeft;
+      const maxScroll = container.scrollWidth - container.clientWidth;
+
+      if (scrollLeft <= 2) {
+        maskContainer.style.webkitMaskImage = maskOnlyRight;
+        maskContainer.style.maskImage = maskOnlyRight;
+      } else if (scrollLeft >= maxScroll - 2) {
+        maskContainer.style.webkitMaskImage = maskOnlyLeft;
+        maskContainer.style.maskImage = maskOnlyLeft;
+      } else {
+        maskContainer.style.webkitMaskImage = maskBothSides;
+        maskContainer.style.maskImage = maskBothSides;
+      }
+    };
+
+    container.addEventListener('scroll', updateMaskState);
+
+    // Bucle continuo a 60 FPS para el desplazamiento suave
+    const updateScroll = () => {
+      if (scrollSpeed !== 0) {
+        container.scrollLeft += scrollSpeed;
+        animationFrameId = requestAnimationFrame(updateScroll);
+      }
+    };
+
+    const startScrolling = (speed: number) => {
+      scrollSpeed = speed;
+      if (!animationFrameId) {
+        animationFrameId = requestAnimationFrame(updateScroll);
+      }
+    };
+
+    const stopScrolling = () => {
+      scrollSpeed = 0;
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+      }
+    };
+
+    // Control en extremo derecho (Freno/Aceleración suave interna)
+    zoneRight.addEventListener('mousemove', (e) => {
+      const rect = zoneRight.getBoundingClientRect();
+      const x = e.clientX - rect.left; 
+      const speed = Math.min((x / rect.width) * 9, 9);
+      startScrolling(speed);
+    });
+    zoneRight.addEventListener('mouseleave', stopScrolling);
+
+    // Control en extremo izquierdo (Freno/Aceleración suave interna)
+    zoneLeft.addEventListener('mousemove', (e) => {
+      const rect = zoneLeft.getBoundingClientRect();
+      const x = rect.width - (e.clientX - rect.left);
+      const speed = -Math.min((x / rect.width) * 9, 9);
+      startScrolling(speed);
+    });
+    zoneLeft.addEventListener('mouseleave', stopScrolling);
+    
+    // Configuración inicial en el primer renderizado
+    updateMaskState();
+  }
+</script>
+
+<style>
+  /* Ocultar barra de scroll en navegadores */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style>
