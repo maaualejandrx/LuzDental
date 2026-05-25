@@ -1,47 +1,161 @@
 ---
 import { Image } from 'astro:assets';
 import nosotrosComposicionImg from '../images/nosotros-composicion.png';  
+import decorationImg from '../images/decoration.png';  
+import limpiezaImg from '../images/limpieza.png';  
+import extraccionImg from '../images/extraccion.png'; 
 ---
 
-<!-- Agregamos 'relative z-10' para que se posicione por encima del Hero congelado y lo tape al subir -->
-<section class="w-full min-h-screen flex items-center bg-[#FAFAFA] py-20 overflow-hidden relative z-10 shadow-[0_-20px_50px_rgba(0,0,0,0.03)]">
+<!-- 1. Añadimos la clase 'reveal-section' manteniendo tus estilos de fondo y sombras -->
+<section id="nosotros-section" class="w-full min-h-screen flex items-center bg-[#FAFAFA] py-0 overflow-hidden relative z-10 shadow-[0_-20px_50px_rgba(0,0,0,0.03)] reveal-section">
   <div class="w-full max-w-[1440px] mx-auto px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        <div class="lg:col-span-7 flex flex-col items-start text-left space-y-8 pr-0 lg:pr-12">
+    
+    <!-- BLOQUE IZQUIERDO CON ANIMACIONES DE ENTRADA Y HOVERS INTERACTIVOS -->
+    <div class="lg:col-span-7 flex flex-col items-start text-left space-y-8 pr-0 lg:pr-12 pb-12">
+      
+      <!-- CONTENEDOR DE TARJETAS INFORMATIVAS -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full">
-        <div class="flex flex-col items-start space-y-2">
-          <div class="p-3 bg-blue-50 rounded-xl text-[#0076c8]">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <h3 class="text-lg font-black text-[#0c1230]">Precio accesible</h3>
-          <p class="text-sm text-slate-500 max-w-xs leading-relaxed">Con precios accesibles para todo el público</p>
-        </div>
-        <div class="flex flex-col items-start space-y-2">
-          <div class="p-3 bg-blue-50 rounded-xl text-[#0076c8]">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-            </svg>
-          </div>
-          <h3 class="text-lg font-black text-[#0c1230]">Servicio de calidad</h3>
-          <p class="text-sm text-slate-500 max-w-xs leading-relaxed text-justify">Servicio satisfactorio y de alta calidad, con herramientas e instrumental adecuado para cada operación</p>
-        </div>
+        
+        <!-- TARJETA 1: PRECIO ACCESIBLE (Se cambia 'animate-jump-in' por 'reveal-item') -->
+        <div class="reveal-item"> <div class="flex flex-col items-start space-y-2 group cursor-pointer transition-all duration-300 transform hover:-translate-y-1"> <div class="p-3 bg-blue-50 rounded-xl text-[#0076c8] group-hover:bg-[#0076c8] group-hover:text-white transition-all duration-300 transform group-hover:rotate-12 shadow-sm group-hover:shadow-md">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    </div>
+    <h3 class="text-lg font-black text-[#0c1230] group-hover:text-[#0076c8] transition-colors duration-300">Precio accesible</h3>
+    <p class="text-sm text-slate-500 max-w-xs leading-relaxed">Con precios accesibles para todo el público</p>
+  </div>
+</div>
+
+<div class="reveal-item [transition-delay:150ms]">
+  <div class="flex flex-col items-start space-y-2 group cursor-pointer transition-all duration-300 transform hover:-translate-y-1">
+    <div class="p-3 bg-blue-50 rounded-xl text-[#0076c8] group-hover:bg-[#0076c8] group-hover:text-white transition-all duration-300 transform group-hover:scale-110 shadow-sm group-hover:shadow-md">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+      </svg>
+    </div>
+    <h3 class="text-lg font-black text-[#0c1230] group-hover:text-[#0076c8] transition-colors duration-300">Servicio de calidad</h3>
+    <p class="text-sm text-slate-500 max-w-xs leading-relaxed text-justify">Servicio satisfactorio y de alta calidad...</p>
+  </div>
+</div>
+
       </div>
-      <h2 class="text-4xl sm:text-5xl xl:text-6xl font-black text-[#0c1230] tracking-tighter leading-[1.05] w-full max-w-2xl">
+
+      <!-- TÍTULO PRINCIPAL (Con reveal-item y retraso de 300ms) -->
+      <h2 class="text-4xl sm:text-5xl xl:text-6xl font-black text-[#0c1230] tracking-tighter leading-[1.05] w-full max-w-2xl reveal-item [transition-delay:300ms]">
         La cirujana dentista más <span class="text-[#0076c8]">confiable</span> que puedes encontrar
       </h2>
-      <p class="text-lg text-slate-600 font-medium max-w-2xl leading-relaxed tracking-wide text-justify">
-        cirujana dentista con experiencia en .... estudiante de la ujat blabla especializada enTempus turpis laoreet commodo suspendisse commodo mus vitae molestie aliquet sodales lectus massa.
+
+      <!-- PÁRRAFO DESCRIPTIVO (Con reveal-item y retraso de 450ms) -->
+      <p class="text-lg text-slate-600 font-medium max-w-2xl leading-relaxed tracking-wide text-justify reveal-item [transition-delay:450ms]">
+        Cirujana dentista con experiencia en .... estudiante de la ujat blabla especializada en Tempus turpis laoreet commodo suspendisse commodo mus vitae molestie aliquet sodales lectus massa.
       </p>
+
     </div>
-    <div class="lg:col-span-5 flex justify-center items-center relative">
-      <div class="w-full max-w-[480px] lg:max-w-none">
-        <Image
-          src={nosotrosComposicionImg} 
-          alt="Composición de la Doctora y detalles visuales" 
-          class="w-full h-auto object-contain block"
-        />
+
+    <!-- ========================================================================= -->
+    <!-- BLOQUE DE IMAGEN EN CAPAS 3D MANTENIENDO TUS TAMAÑOS EDITADOS AL 100% -->
+    <!-- ========================================================================= -->
+    <div class="lg:col-span-5 flex justify-center items-center relative overflow-visible h-[999px]">
+      
+      <!-- CONTENEDOR MAESTRO DE CONTROL DE COORDENADAS -->
+      <div class="w-full max-w-[480px] h-[600px] relative flex items-center justify-center overflow-visible transform translate-y-[120px]">        
+        
+        <!-- CAPA 1: PICOS DE FONDO AZULES (Tus medidas exactas: max-w-[480px] h-[650px] y traslaciones) -->
+        <div class="absolute inset-0 z-0 flex items-center justify-center">
+          <Image 
+            src={decorationImg} 
+            alt="Decoración geométrica de fondo" 
+            class="w-full max-w-[480px] h-[650px] object-fill block opacity-95 transform -translate-x-9 translate-y-8"
+          />
+        </div>
+
+        <!-- CAPA 2: LA ESTELA DE LUZ AURORA (Tus medidas exactas: max-w-[480px] e inline duration) -->
+        <div class="absolute inset-0 z-30 flex items-center justify-center animate-pulse [animation-duration:2s]">
+          <img 
+            src="/Aurora.svg" 
+            alt="Haz de luz curvo" 
+            class="w-full max-w-[480px] h-auto object-contain block" 
+          />
+        </div>
+
+        <!-- CAPA 3: LA FOTO CENTRAL DE LA DOCTORA (Tus medidas exactas: w-[700px], h-[1000px] y traslaciones) -->
+        <div class="absolute inset-0 z-20 flex items-center justify-center w-[700px] max-w-none mx-auto">
+          <Image 
+            src={nosotrosComposicionImg} 
+            alt="Cirujana Dentista Luz Elena" 
+            class="w-full max-w-full h-[1000px] object-fill block transform translate-y-[60px] -translate-x-30"
+          />
+        </div>
+
+        <!-- CAPA 4: SATÉLITES FLOTANTES -->
+        
+        <!-- CÍRCULO 1: LIMPIEZA DENTAL (Tus medidas exactas: top 10%, left 4%, w/h 160px) -->
+        <div class="absolute top-[10%] left-[4%] w-[160px] h-[160px] z-10 animate-float-card">
+          <Image 
+            src={limpiezaImg} 
+            alt="Caso de éxito limpieza dental" 
+            class="w-full h-full object-contain block"
+          />
+        </div>
+
+        <!-- CÍRCULO 2: EXTRACCIÓN DENTAL (Tus medidas exactas: bottom 0%, right 2%, w/h 160px) -->
+        <div class="absolute bottom-[0%] right-[2%] w-[160px] h-[160px] z-30 animate-float-card-slow">
+          <Image 
+            src={extraccionImg} 
+            alt="Operación clínica extracción" 
+            class="w-full h-full object-contain block"
+          />
+        </div>
+
+        <!-- DESTELLO DE RAYITAS BLING.SVG (Tus medidas exactas: top 9%, right 35%) -->
+        <div class="absolute top-[9%] right-[35%] w-10 h-10 z-30 animate-pulse [animation-duration:2.8s]">
+          <img 
+            src="/bling.svg" 
+            alt="Brillo de destello" 
+            class="w-full h-full object-contain" 
+          />
+        </div>
+
       </div>
     </div>
+
   </div>
 </section>
+
+<script>
+  function initScrollReveal() {
+    const section = document.getElementById('nosotros-section');
+    if (!section) return; 
+
+    // Aseguramos que la sección inicie apagada si recargas la página a la mitad
+    section.classList.remove('active');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          requestAnimationFrame(() => {
+            section.classList.add('active');
+          });
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { 
+      // EL TRUCO DE ORO: Exigimos que la sección cruce al menos 150px 
+      // hacia arriba antes de dispararse, evitando falsos positivos del sticky
+      rootMargin: "0px 0px -150px 0px", 
+      threshold: 0
+    });
+
+    // Le damos al navegador 100 milisegundos para acomodar el 'sticky' antes de observar
+    setTimeout(() => {
+      observer.observe(section);
+    }, 100);
+  }
+
+  // Ejecutamos en la carga
+  initScrollReveal();
+  
+  // Ejecutamos si Astro inyecta la vista
+  document.addEventListener('astro:page-load', initScrollReveal);
+</script>
