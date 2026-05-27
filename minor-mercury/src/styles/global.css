@@ -74,11 +74,13 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
 }
+
 .reveal-item {
   opacity: 0;
-  transform: translateY(30px);
-  /* Esta transición controla cómo suben los elementos */
-  transition: opacity 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: translateY(50px); /* Un poco más abajo para que el viaje sea largo y suave */
+  /* 4 segundos de duración con una curva ultra suave */
+  transition: opacity 5s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Estado final cuando JavaScript añade la clase 'active' a la sección */
