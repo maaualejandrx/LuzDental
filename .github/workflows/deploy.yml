@@ -32,9 +32,12 @@ jobs:
           node-version: 22
 
       - name: Install dependencies
-        # Usamos '--config.onlyBuiltDependencies' para decirle a pnpm exactamente qué paquetes permitir correr en caliente
-        run: pnpm install --no-frozen-lockfile --config.onlyBuiltDependencies=esbuild,sharp
+        run: pnpm install --no-frozen-lockfile
         working-directory: ./minor-mercury
+        # DESACTIVAMOS EL COMPORTAMIENTO ESTRICTO MEDIANTE VARIABLES DE ENTORNO
+        env:
+          pnpm_config_strict_dep_builds: false
+
 
 
         
