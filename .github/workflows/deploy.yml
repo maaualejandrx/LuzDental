@@ -32,8 +32,12 @@ jobs:
           node-version: 22
 
       - name: Install dependencies
-        run: pnpm install
+        # Añadimos un paso para borrar configuraciones viejas y reinstalar de cero
+        run: |
+          rm -f pnpm-lock.yaml
+          pnpm install --no-frozen-lockfile
         working-directory: ./minor-mercury
+
 
         
       - name: Build Astro
