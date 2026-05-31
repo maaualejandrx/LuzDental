@@ -31,7 +31,7 @@ jobs:
         with:
           node-version: 22
 
-        - name: Install dependencies
+      - name: Install dependencies
         # Aprobamos de forma automatizada los scripts de esbuild y sharp antes de la instalacion
         run: |
           pnpm approve-builds --package esbuild
