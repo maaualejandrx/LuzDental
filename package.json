@@ -28,10 +28,8 @@
     "@tailwindcss/postcss": "^4.3.0",
     "tailwindcss": "^4.3.0"
   },
-    "pnpm": {
-    "onlyBuiltDependencies": [
-      "sharp",
-      "esbuild"
-    ]
+  "pnpm": {
+    "onlyBuiltDependenciesModifier": "dangerouslyAllowAllBuilds"
   }
+
 }
