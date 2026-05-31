@@ -1,0 +1,4 @@
+# Configuración oficial de compilación segura para pnpm v11
+allowBuilds:
+  - esbuild
+  - sharp

@@ -34,9 +34,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
         working-directory: ./minor-mercury
-        # DESACTIVAMOS EL COMPORTAMIENTO ESTRICTO MEDIANTE VARIABLES DE ENTORNO
-        env:
-          pnpm_config_strict_dep_builds: false
+
 
 
 
