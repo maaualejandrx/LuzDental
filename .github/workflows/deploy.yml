@@ -31,9 +31,14 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        - name: Install dependencies
+        # Aprobamos de forma automatizada los scripts de esbuild y sharp antes de la instalacion
+        run: |
+          pnpm approve-builds --package esbuild
+          pnpm approve-builds --package sharp
+          pnpm install --no-frozen-lockfile
         working-directory: ./minor-mercury
+
         
       - name: Build Astro
         run: pnpm run build
