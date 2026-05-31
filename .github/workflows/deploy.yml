@@ -20,18 +20,24 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9 # Usa la versión de pnpm que tengas local (puedes dejar 9 o cambiarla por la tuya)
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          
+          cache: "pnpm" # Activa la caché rápida para pnpm
+
       - name: Install dependencies
-        run: npm install
+        run: pnpm install --frozen-lockfile
         working-directory: ./minor-mercury
         
       - name: Build Astro
-        run: npm run build
+        run: pnpm run build
         working-directory: ./minor-mercury
 
       - name: Upload artifact
@@ -42,7 +48,7 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }} # <- CORREGIDO: Se cambiaron los ":" por un "."
+      url: ${{ steps.deployment.outputs.page_url }}
     needs: build
     runs-on: ubuntu-latest
     steps:
