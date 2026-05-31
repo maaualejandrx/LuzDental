@@ -32,13 +32,10 @@ jobs:
           node-version: 22
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        # Esta bandera desactiva el bloqueo de seguridad de pnpm v11 en el servidor
+        run: pnpm install --no-frozen-lockfile --no-strict-dep-builds
         working-directory: ./minor-mercury
 
-
-
-
-        
       - name: Build Astro
         run: pnpm run build
         working-directory: ./minor-mercury
