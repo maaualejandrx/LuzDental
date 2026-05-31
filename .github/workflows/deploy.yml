@@ -2,7 +2,7 @@ name: Deploy Astro site to Pages
 
 on:
   push:
-    branches: ["main"] # Cambia a "master" si tu rama principal se llama así
+    branches: ["main"]
 
 permissions:
   contents: read
@@ -28,21 +28,21 @@ jobs:
           
       - name: Install dependencies
         run: npm install
-        working-directory: ./minor-mercury # <- IMPORTANTE: Aquí le decimos dónde buscar tu 'package.json'
+        working-directory: ./minor-mercury
         
       - name: Build Astro
         run: npm run build
-        working-directory: ./minor-mercury # <- Ejecuta la compilación dentro de la subcarpeta
+        working-directory: ./minor-mercury
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./minor-mercury/dist # <- Sube la carpeta compilada resultante
+          path: ./minor-mercury/dist
 
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps: deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url }} # <- CORREGIDO: Se cambiaron los ":" por un "."
     needs: build
     runs-on: ubuntu-latest
     steps:
