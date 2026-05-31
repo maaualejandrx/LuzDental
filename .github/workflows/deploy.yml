@@ -30,10 +30,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          # SE ELIMINÓ 'cache: pnpm' DE AQUÍ PARA EVITAR EL ERROR DE WORKSPACE
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        # FORZAMOS LA INSTALACIÓN IGNORANDO CUALQUIER ARCHIVO WORKSPACE RESIDUAL
+        run: pnpm install --frozen-lockfile --no-workspace
         working-directory: ./minor-mercury
         
       - name: Build Astro
