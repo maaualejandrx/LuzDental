@@ -30,7 +30,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "pnpm" # Activa la caché rápida para pnpm
+          cache: "pnpm"
+          cache-dependency-path: ./pnpm-lock.yaml # <- Cámbialo para que apunte al de la raíz
+
+
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
