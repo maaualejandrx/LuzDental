@@ -32,9 +32,9 @@ jobs:
           node-version: 22
 
       - name: Install dependencies
-        # FORZAMOS LA INSTALACIÓN IGNORANDO CUALQUIER ARCHIVO WORKSPACE RESIDUAL
-        run: pnpm install --frozen-lockfile --no-workspace
+        run: pnpm install
         working-directory: ./minor-mercury
+
         
       - name: Build Astro
         run: pnpm run build
