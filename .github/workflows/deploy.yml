@@ -24,7 +24,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 11 # <- CAMBIADO A LA VERSIÓN 11 PARA EVITAR EL BUG DEL WORKSPACE
+          version: 11
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -32,13 +32,9 @@ jobs:
           node-version: 22
 
       - name: Install dependencies
-        # Configuramos la propiedad permitida directamente en el motor de pnpm antes del comando install
-        run: |
-          pnpm config set onlyBuiltDependenciesModifier dangerouslyAllowAllBuilds
-          pnpm install --no-frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
         working-directory: ./minor-mercury
-
-
+        
       - name: Build Astro
         run: pnpm run build
         working-directory: ./minor-mercury
