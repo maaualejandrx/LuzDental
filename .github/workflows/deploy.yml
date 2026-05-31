@@ -31,16 +31,9 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install dependencies
-        # Forzamos el borrado físico en el servidor Linux antes de que pnpm despierte
-        run: |
-          rm -f pnpm-workspace.yaml
-          rm -f ../pnpm-workspace.yaml
-          pnpm install --no-frozen-lockfile
+        - name: Install dependencies
+        run: pnpm install
         working-directory: ./minor-mercury
-
-
-
         
       - name: Build Astro
         run: pnpm run build
