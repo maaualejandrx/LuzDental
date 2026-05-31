@@ -32,11 +32,13 @@ jobs:
           node-version: 22
 
       - name: Install dependencies
-        # Añadimos un paso para borrar configuraciones viejas y reinstalar de cero
+        # Forzamos el borrado físico en el servidor Linux antes de que pnpm despierte
         run: |
-          rm -f pnpm-lock.yaml
+          rm -f pnpm-workspace.yaml
+          rm -f ../pnpm-workspace.yaml
           pnpm install --no-frozen-lockfile
         working-directory: ./minor-mercury
+
 
 
         
